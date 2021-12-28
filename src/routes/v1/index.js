@@ -6,7 +6,7 @@ import CharacterRoute from './character.routes';
 const router = Router();
 
 router.get('/', (req, res) => {
-  res.status(200).json({ message: 'Welcome To Swapi' });
+  res.status(200).json({ message: 'Welcome To Swapi V1' });
 });
 
 router.use('/movies', MovieRoute);

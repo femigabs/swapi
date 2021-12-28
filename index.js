@@ -4,7 +4,7 @@ import db from './src/db/index';
 
 const app = express();
 const host = config.APP_HOST;
-const port = config.APP_PORT || 8080;
+const port = config.PORT || 8080;
 const apiVersion = config.API_VERSION;
 
 appConfig(app);

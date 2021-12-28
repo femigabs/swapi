@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import fs from 'fs';
 import morgan from 'morgan';
 import express from 'express';
@@ -56,6 +57,10 @@ const expressConfig = (app) => {
       'Authorization, Origin, Content-Type, Accept');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
+  });
+
+  app.get('/', (req, res) => {
+    res.status(200).json({ message: 'Welcome To Swapi' });
   });
 
   app.use('/api/v1', routes);

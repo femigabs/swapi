@@ -10,7 +10,7 @@ describe('Integration test', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, res) => {
-                expect(res.body.message).to.equal('Welcome To Swapi');
+                expect(res.body.message).to.equal('Welcome To Swapi V1');
                 done();
             });
     });
