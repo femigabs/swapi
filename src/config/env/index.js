@@ -4,7 +4,7 @@ import test from './test';
 import production from './production';
 
 const {
-  SWAPI_APP_PORT: PORT,
+  PORT,
   SWAPI_NODE_ENV: NODE_ENV,
 } = process.env;
 
