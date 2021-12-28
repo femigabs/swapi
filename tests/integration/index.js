@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import app from '../../src/index';
+import app from '../../index';
 
 describe('Integration test', () => {
     it('Hello World', (done) => {
@@ -10,7 +10,7 @@ describe('Integration test', () => {
             .expect('Content-Type', /json/)
             .expect(200)
             .end((err, res) => {
-                expect(res.body.message).to.equal('Welcome');
+                expect(res.body.message).to.equal('Welcome To Swapi');
                 done();
             });
     });

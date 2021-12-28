@@ -1,5 +1,7 @@
+/* eslint-disable import/no-cycle */
 import { Router } from 'express';
-import MovieRoute from './movies';
+import MovieRoute from './movie.routes';
+import CharacterRoute from './character.routes';
 
 const router = Router();
 
@@ -8,5 +10,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/movies', MovieRoute);
+router.use('/characters', CharacterRoute);
 
 export default router;
