@@ -21,7 +21,7 @@
     "pretest": "npm run migrate-test:down && npm run migrate-test:up",
     "test": "cross-env SWAPI_NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=text-summary mocha -c -r esm \"./tests/**/*.js\" --timeout 12000 --exit",
     "posttest": "npm run migrate-test:down",
-    "prestart": "npm run migrate:up",
+    // "prestart": "npm run migrate:up",
     "start": "cross-env SWAPI_NODE_ENV=production node -r esm .",
     "dev": "nodemon -r esm .",
     "migrate:up": "db-migrate up",
