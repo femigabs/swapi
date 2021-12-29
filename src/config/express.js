@@ -7,7 +7,7 @@ import FileStreamRotator from 'file-stream-rotator';
 import cors from 'cors';
 import loggerInit from './logger';
 import routes from '../routes/v1/index';
-import { Error } from '../utils/response';
+import { Error, errorResponse } from '../utils/response';
 
 const logDirectory = './logs';
 const checkLogDir = fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
@@ -70,13 +70,9 @@ const expressConfig = (app) => {
 
   // error handlers
   // will print stacktrace
-  app.use((err, req, res, next) => res.status(err.code || 500)
-    .json({
-      status: err.status,
-      message: err.message,
-      code: err.code,
-      data: err.data,
-    }));
+  app.use((err, req, res, next) => {
+    errorResponse(err, req, res);
+  });
 };
 
 export default expressConfig;
