@@ -69,21 +69,14 @@ const expressConfig = (app) => {
   app.use((req, res, next) => next(Error('Route Not Found', 404)));
 
   // error handlers
-  // development error handler
   // will print stacktrace
-  if (app.get('env') === 'development' || app.get('env') === 'test') {
-    app.use((err, req, res, next) => res.status(err.code || 500)
-      .json({
-        status: err.status,
-        message: err.message,
-        code: err.code,
-        data: err.data,
-      }));
-  }
-
-  // production error handler
-  // remove stacktrace
-  app.use((err, res) => res.status(err.code || 500).json({ message: err.message }));
+  app.use((err, req, res, next) => res.status(err.code || 500)
+    .json({
+      status: err.status,
+      message: err.message,
+      code: err.code,
+      data: err.data,
+    }));
 };
 
 export default expressConfig;
