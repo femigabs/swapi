@@ -55,9 +55,9 @@ describe('Movies APIs', () => {
         .send({
           comment: "top notch movie"
         })
-        .expect(200)
+        .expect(201)
         .end((err, res) => {
-          expect(res.body.code).to.equal(200);
+          expect(res.body.code).to.equal(201);
           expect(res.body.status).to.equal('success');
           expect(res.body.message).to.equal('Comment created successfully');
           done();

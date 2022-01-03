@@ -75,8 +75,12 @@ Create a `.env` file and add the environment variables described in the `.env.ex
 - Supertest and mocha
 - Postman
 
-## Documentation
+## API
+The API is currently in version 1 (v1) and it is hosted on heroku at [Base URL](https://swapi-starwar.herokuapp.com/api/v1/)
+
+## API Documentation
 - postman: https://documenter.getpostman.com/view/11087517/UVREmkcA
+- swagger doc: https://swapi-starwar.herokuapp.com/api/v1/docs/
 
 ## Copyright
 

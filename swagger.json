@@ -1,0 +1,295 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0",
+      "title": "Swapi",
+      "description": "A SWAPI appplication that provides API endpoints for listing names of Star Wars movies along with their opening crawls and comment counts, adding and listing anonymous comments for a movie, and getting the character list for a movie."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3002/"
+      },
+      {
+        "url": "https://swapi-starwar.herokuapp.com/"
+      }
+    ],
+    "host": "",
+    "basePath": "/api/v1",
+    "tags": [
+      {
+        "name": "Movie",
+        "description": "Endpoints for Movies"
+      },
+      {
+        "name": "Character",
+        "description": "Endpoints for Characters"
+      }
+    ],
+    "paths": {
+      "/movies": {
+        "get": {
+          "description": "Gets Star Wars Movie List",
+          "summary": "Fetches Star Wars movie list with data modification.",
+          "tags": ["Movie"],
+          "produces": ["application/json"],
+          "security": [],
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Successfully fetched Star Wars movie list.",
+              "schema": {
+                "$ref": "#/components/schemas/responseBody/getMoviesSuccess"
+              }
+            }
+          }
+        }
+      },
+      "/movies/{id}/comment": {
+        "post": {
+          "description": "Adds Movie Comment",
+          "summary": "Enables a user to add comment to a specific movie",
+          "tags": ["Movie"],
+          "produces": ["application/json"],
+          "security": [],
+          "parameters": [
+            {
+                "in": "path",
+                "name": "episodeId",
+                "required": true,
+                "description": "The movie's Id"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing comment information",
+              "schema": {
+                "$ref": "#/components/schemas/requestBody/addCommentRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successfully created a new comment.",
+              "schema": {
+                "$ref": "#/components/schemas/responseBody/addMovieCommentsSuccess"
+              }
+            }
+          }
+        }
+      },
+      "/movies/{episodeId}/comment": {
+        "get": {
+          "description": "Retrieves movie comments",
+          "summary": "Retrieves movie comments by Id",
+          "tags": ["Movie"],
+          "produces": ["application/json"],
+          "security": [],
+          "parameters": [
+            {
+                "in": "path",
+                "name": "episodeId",
+                "required": true,
+                "description": "The movie's Id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successfully retrieved movie comments",
+              "schema": {
+                "$ref": "#/components/schemas/responseBody/getMovieCommentsSuccess"
+              }
+            }
+          }
+        }
+      },
+      "/characters": {
+        "get": {
+          "description": "Retrieves star wars characters based on the query parameters",
+          "summary": "Retrieves star wars characters and filter the results based on query parameters",
+          "tags": ["Character"],
+          "produces": ["application/json"],
+          "security": [],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "sort",
+              "required": false,
+              "description": "This allows you to sort the character's name, height or gender with a default ascending order"
+            },
+            {
+              "in": "query",
+              "name": "order",
+              "required": false,
+              "description": "This allows you to order the sorted character in ascending or descending order"
+            },
+            {
+              "in": "query",
+              "name": "gender",
+              "required": false,
+              "description": "This allows you to filter by gender. (male, female or n/a)."
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successfully retrieved characters",
+              "schema": {
+                "$ref": "#/components/schemas/responseBody/getCharactersSuccess"
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "requestBody": {
+          "addCommentRequest": {
+            "title": "Movie Comment Request",
+            "type": "object",
+            "properties": {
+              "comment": {
+                "description": "Movie comment of the user",
+                "type": "string"
+              }
+            },
+            "example": {
+              "comment": "i love this movie so much"
+            },
+            "required": ["comment"]
+          }
+        },
+        "responseBody": {
+          "getMoviesSuccess": {
+            "properties": {
+              "status": {
+                "description": "successful",
+                "type": "string"
+              },
+              "data": {
+                "description": "A collection of object containing properties of star wars movie list",
+                "type": "array"
+              }
+            },
+            "example": {
+              "status": "success",
+              "message": "Movies fetched successfully",
+              "code": 200,
+              "data": [
+                {
+                    "episode_id": 3,
+                    "title": "Revenge of the Sith",
+                    "opening_crawl": "War! The Republic is crumbling\r\nunder attacks by the ruthless\r\nSith Lord, Count Dooku.\r\nThere are heroes on both sides.\r\nEvil is everywhere.\r\n\r\nIn a stunning move, the\r\nfiendish droid leader, General\r\nGrievous, has swept into the\r\nRepublic capital and kidnapped\r\nChancellor Palpatine, leader of\r\nthe Galactic Senate.\r\n\r\nAs the Separatist Droid Army\r\nattempts to flee the besieged\r\ncapital with their valuable\r\nhostage, two Jedi Knights lead a\r\ndesperate mission to rescue the\r\ncaptive Chancellor....",
+                    "release_date": "2005-05-19",
+                    "comment_count": 1
+                }
+              ]
+            }
+          },
+          "addMovieCommentsSuccess": {
+            "properties": {
+              "status": {
+                "description": "successful",
+                "type": "string"
+              },
+              "data": {
+                "description": "An object containing properties of the newly created comment",
+                "type": "object"
+              }
+            },
+            "example": {
+              "status": "success",
+              "message": "Comment created successfully",
+              "code": 201,
+              "data": {
+                "id": 4,
+                "episode_id": 1,
+                "commenter_ip": "102.89.0.49",
+                "comment": "i love this movie so much",
+                "created_at": "2021-12-29T15:17:46.069Z",
+                "updated_at": "2021-12-29T15:17:46.069Z"
+              }
+            }
+          },
+          "getMovieCommentsSuccess": {
+            "properties": {
+              "status": {
+                "description": "successful",
+                "type": "string"
+              },
+              "data": {
+                "description": "A collection of object containing properties of star wars movie comments",
+                "type": "array"
+              }
+            },
+            "example": {
+              "status": "success",
+              "message": "Comments fetched successfully",
+              "code": 200,
+              "data": [
+                {
+                  "id": 3,
+                  "episode_id": 1,
+                  "commenter_ip": "197.210.79.24",
+                  "comment": "new movie",
+                  "created_at": "2021-12-28T12:24:48.379Z",
+                  "updated_at": "2021-12-28T12:24:48.379Z"
+                }
+              ]
+            }
+          },
+          "getCharactersSuccess": {
+            "properties": {
+              "status": {
+                "description": "successful",
+                "type": "string"
+              },
+              "data": {
+                "description": "An object containing properties of star wars metadata and characters",
+                "type": "object"
+              }
+            },
+            "example": {
+              "status": "success",
+              "message": "Characters fetched successfully",
+              "code": 200,
+              "data": {
+                "metadata": {
+                  "count": 5,
+                  "cm": 917,
+                  "ft": 30,
+                  "inches": 361.02
+                },
+                "characters": [
+                    {
+                        "name": "Biggs Darklighter",
+                        "height": "183",
+                        "mass": "84",
+                        "hair_color": "black",
+                        "skin_color": "light",
+                        "eye_color": "brown",
+                        "birth_year": "24BBY",
+                        "gender": "male",
+                        "homeworld": "https://swapi.dev/api/planets/1/",
+                        "films": [
+                            "https://swapi.dev/api/films/1/"
+                        ],
+                        "species": [],
+                        "vehicles": [
+                          "https://swapi.dev/api/vehicles/38/"
+                        ],
+                        "starships": [
+                          "https://swapi.dev/api/starships/12/"
+                        ],
+                        "created": "2014-12-10T15:59:50.509000Z",
+                        "edited": "2014-12-20T21:17:50.323000Z",
+                        "url": "https://swapi.dev/api/people/9/"
+                    }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+}
