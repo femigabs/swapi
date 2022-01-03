@@ -34,7 +34,7 @@ export const addComment = async (req, res, next) => {
       req.params, req.body, ip,
     );
     successResponse(
-      res, constants.CREATE_SUCCESS('Comment'), 200, data,
+      res, constants.CREATE_SUCCESS('Comment'), 201, data,
     );
   } catch (error) {
     next(error);
